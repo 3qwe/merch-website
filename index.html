@@ -18,82 +18,46 @@
                     <li><a href="#clothes">Clothes</a></li>
                     <li><a href="#bags">Bags</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li><a href="#" id="cart-link">Cart (<span id="cart-count">0</span>)</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main>
-        <section class="hero">
-            <div class="container">
-                <h2>Exclusive Merchandise Collection</h2>
-                <p>Find the best toys, clothes, and bags inspired by your favorite personality.</p>
-                <button class="shop-now">Shop Now</button>
+        <!-- Cart Modal -->
+        <div id="cart-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Your Shopping Cart</h2>
+                <ul id="cart-items"></ul>
+                <p id="cart-total">Total: $0.00</p>
+                <button id="checkout-btn">Checkout</button>
             </div>
-        </section>
+        </div>
 
+        <!-- Product Sections (Toys, Clothes, Bags) -->
         <section id="toys" class="products">
             <div class="container">
                 <h2>Toys</h2>
                 <div class="product-list">
-                    <div class="product-card">
-                        <img src="toy1.jpg" alt="Toy 1">
+                    <div class="product-card" data-name="Action Figure" data-price="29.99" data-img="toy1.jpg">
+                        <img src="images/toy1.jpg" alt="Toy 1">
                         <h3>Action Figure</h3>
                         <p>$29.99</p>
                         <button class="add-to-cart">Add to Cart</button>
                     </div>
-                    <div class="product-card">
-                        <img src="toy2.jpg" alt="Toy 2">
+                    <div class="product-card" data-name="Plush Toy" data-price="19.99" data-img="toy2.jpg">
+                        <img src="images/toy2.jpg" alt="Toy 2">
                         <h3>Plush Toy</h3>
                         <p>$19.99</p>
                         <button class="add-to-cart">Add to Cart</button>
                     </div>
-                    <!-- Add more products as needed -->
                 </div>
             </div>
         </section>
 
-        <section id="clothes" class="products">
-            <div class="container">
-                <h2>Clothes</h2>
-                <div class="product-list">
-                    <div class="product-card">
-                        <img src="shirt1.jpg" alt="Shirt 1">
-                        <h3>T-Shirt</h3>
-                        <p>$24.99</p>
-                        <button class="add-to-cart">Add to Cart</button>
-                    </div>
-                    <div class="product-card">
-                        <img src="hoodie1.jpg" alt="Hoodie 1">
-                        <h3>Hoodie</h3>
-                        <p>$49.99</p>
-                        <button class="add-to-cart">Add to Cart</button>
-                    </div>
-                    <!-- Add more products as needed -->
-                </div>
-            </div>
-        </section>
-
-        <section id="bags" class="products">
-            <div class="container">
-                <h2>Bags</h2>
-                <div class="product-list">
-                    <div class="product-card">
-                        <img src="bag1.jpg" alt="Bag 1">
-                        <h3>Backpack</h3>
-                        <p>$34.99</p>
-                        <button class="add-to-cart">Add to Cart</button>
-                    </div>
-                    <div class="product-card">
-                        <img src="bag2.jpg" alt="Bag 2">
-                        <h3>Tote Bag</h3>
-                        <p>$19.99</p>
-                        <button class="add-to-cart">Add to Cart</button>
-                    </div>
-                    <!-- Add more products as needed -->
-                </div>
-            </div>
-        </section>
+        <!-- Other sections (Clothes, Bags) -->
 
     </main>
 
