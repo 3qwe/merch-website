@@ -1,32 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Variables to keep track of cart items and cart count
+    // Variables to keep track of cart items and cart elements
     let cart = [];
+    const cartButton = document.getElementById("cart-button");
+    const cartPopup = document.getElementById("cart-popup");
     const cartCountElement = document.getElementById("cart-count");
     const cartTableBody = document.querySelector("#cart-table tbody");
     const cartTotalElement = document.getElementById("cart-total");
-    const cartSidebar = document.getElementById("cart-sidebar");
-    const cartLink = document.getElementById("cart-link");
     const closeCart = document.getElementById("close-cart");
 
-    // Function to add an item to the cart
+    // Function to add items to the cart
     function addToCart(product) {
-        const itemIndex = cart.findIndex(cartItem => cartItem.name === product.name);
-        if (itemIndex !== -1) {
-            cart[itemIndex].quantity++;
+        const existingProduct = cart.find(item => item.name === product.name);
+        if (existingProduct) {
+            existingProduct.quantity++;
         } else {
-            cart.push({
-                name: product.name,
-                price: product.price,
-                quantity: 1,
-                img: product.img
-            });
+            cart.push({...product, quantity: 1});
         }
         updateCart();
     }
 
-    // Function to update the cart count and display
+    // Function to update the cart display
     function updateCart() {
-        // Update cart count
         const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
         cartCountElement.textContent = totalItems;
 
@@ -102,14 +96,20 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Show cart sidebar when cart link is clicked
-    cartLink.addEventListener("click", (e) => {
-        e.preventDefault();
-        cartSidebar.classList.add("open");
+    // Show cart popup when cart button is clicked
+    cartButton.addEventListener("click", () => {
+        cartPopup.style.display = cartPopup.style.display === "block" ? "none" : "block";
     });
 
-    // Close cart sidebar when close button is clicked
+    // Close cart popup when close button is clicked
     closeCart.addEventListener("click", () => {
-        cartSidebar.classList.remove("open");
+        cartPopup.style.display = "none";
+    });
+
+    // Hide cart popup when clicking outside of it
+    window.addEventListener("click", (e) => {
+        if (!cartPopup.contains(e.target) && e.target !== cartButton) {
+            cartPopup.style.display = "none";
+        }
     });
 });

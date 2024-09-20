@@ -18,7 +18,6 @@
                     <li><a href="#clothes">Clothes</a></li>
                     <li><a href="#bags">Bags</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li><a href="#" id="cart-link">Cart (<span id="cart-count">0</span>)</a></li>
                 </ul>
             </nav>
         </div>
@@ -59,8 +58,14 @@
         </section>
     </main>
 
-    <!-- Cart Sidebar -->
-    <div id="cart-sidebar">
+    <!-- Floating Cart Button -->
+    <button id="cart-button">
+        🛒
+        <span id="cart-count">0</span>
+    </button>
+
+    <!-- Cart Pop-up Bubble -->
+    <div id="cart-popup">
         <div class="cart-header">
             <h2>Your Shopping Cart</h2>
             <span id="close-cart">&times;</span>
