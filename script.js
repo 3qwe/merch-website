@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Variables to keep track of cart items and cart elements
+    // Cart-related elements
     let cart = [];
     const cartButton = document.getElementById("cart-button");
     const cartPopup = document.getElementById("cart-popup");
@@ -111,5 +111,26 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!cartPopup.contains(e.target) && e.target !== cartButton) {
             cartPopup.style.display = "none";
         }
+    });
+
+    // Carousel Functionality
+    document.querySelectorAll('.carousel').forEach(carousel => {
+        const carouselInner = carousel.querySelector('.carousel-inner');
+        const images = carouselInner.querySelectorAll('img');
+        let currentIndex = 0;
+
+        const updateCarousel = () => {
+            carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+        };
+
+        carousel.querySelector('.next').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % images.length;
+            updateCarousel();
+        });
+
+        carousel.querySelector('.prev').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            updateCarousel();
+        });
     });
 });
