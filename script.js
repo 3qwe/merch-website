@@ -1,16 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Variables to keep track of cart items and cart count
-    const cart = [];
+    let cart = [];
     const cartCountElement = document.getElementById("cart-count");
-    const cartItemsElement = document.getElementById("cart-items");
+    const cartTableBody = document.querySelector("#cart-table tbody");
     const cartTotalElement = document.getElementById("cart-total");
 
     // Function to add an item to the cart
     function addToCart(product) {
-        // Check if item is already in cart
-        const item = cart.find(cartItem => cartItem.name === product.name);
-        if (item) {
-            item.quantity++;
+        const itemIndex = cart.findIndex(cartItem => cartItem.name === product.name);
+        if (itemIndex !== -1) {
+            cart[itemIndex].quantity++;
         } else {
             cart.push({
                 name: product.name,
@@ -28,21 +27,62 @@ document.addEventListener("DOMContentLoaded", () => {
         const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
         cartCountElement.textContent = totalItems;
 
-        // Update cart items display
-        cartItemsElement.innerHTML = "";
+        // Clear the current cart display
+        cartTableBody.innerHTML = "";
         let totalCost = 0;
-        cart.forEach(item => {
+
+        // Add items to the cart table
+        cart.forEach((item, index) => {
             totalCost += item.price * item.quantity;
-            const li = document.createElement("li");
-            li.innerHTML = `
-                <span><img src="images/${item.img}" alt="${item.name}" width="50"> ${item.name} (x${item.quantity})</span>
-                <span>$${(item.price * item.quantity).toFixed(2)}</span>
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td><img src="images/${item.img}" alt="${item.name}"> ${item.name}</td>
+                <td>$${item.price.toFixed(2)}</td>
+                <td>
+                    <button class="decrease" data-index="${index}">-</button>
+                    ${item.quantity}
+                    <button class="increase" data-index="${index}">+</button>
+                </td>
+                <td>$${(item.price * item.quantity).toFixed(2)}</td>
+                <td><button class="remove" data-index="${index}">Remove</button></td>
             `;
-            cartItemsElement.appendChild(li);
+            cartTableBody.appendChild(row);
         });
 
         // Update total price display
         cartTotalElement.textContent = `Total: $${totalCost.toFixed(2)}`;
+
+        // Add event listeners for increase, decrease, and remove buttons
+        const increaseButtons = document.querySelectorAll(".increase");
+        const decreaseButtons = document.querySelectorAll(".decrease");
+        const removeButtons = document.querySelectorAll(".remove");
+
+        increaseButtons.forEach(button => {
+            button.addEventListener("click", () => changeQuantity(button.dataset.index, 1));
+        });
+
+        decreaseButtons.forEach(button => {
+            button.addEventListener("click", () => changeQuantity(button.dataset.index, -1));
+        });
+
+        removeButtons.forEach(button => {
+            button.addEventListener("click", () => removeItem(button.dataset.index));
+        });
+    }
+
+    // Function to change the quantity of an item in the cart
+    function changeQuantity(index, amount) {
+        cart[index].quantity += amount;
+        if (cart[index].quantity <= 0) {
+            cart.splice(index, 1);
+        }
+        updateCart();
+    }
+
+    // Function to remove an item from the cart
+    function removeItem(index) {
+        cart.splice(index, 1);
+        updateCart();
     }
 
     // Add event listeners to "Add to Cart" buttons
@@ -57,25 +97,5 @@ document.addEventListener("DOMContentLoaded", () => {
             };
             addToCart(product);
         });
-    });
-
-    // Cart modal functionality
-    const cartLink = document.getElementById("cart-link");
-    const modal = document.getElementById("cart-modal");
-    const closeModal = document.querySelector(".close");
-
-    cartLink.addEventListener("click", (e) => {
-        e.preventDefault();
-        modal.style.display = "block";
-    });
-
-    closeModal.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
-
-    window.addEventListener("click", (e) => {
-        if (e.target == modal) {
-            modal.style.display = "none";
-        }
     });
 });
