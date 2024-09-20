@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartCountElement = document.getElementById("cart-count");
     const cartTableBody = document.querySelector("#cart-table tbody");
     const cartTotalElement = document.getElementById("cart-total");
+    const cartSidebar = document.getElementById("cart-sidebar");
+    const cartLink = document.getElementById("cart-link");
+    const closeCart = document.getElementById("close-cart");
 
     // Function to add an item to the cart
     function addToCart(product) {
@@ -97,5 +100,16 @@ document.addEventListener("DOMContentLoaded", () => {
             };
             addToCart(product);
         });
+    });
+
+    // Show cart sidebar when cart link is clicked
+    cartLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        cartSidebar.classList.add("open");
+    });
+
+    // Close cart sidebar when close button is clicked
+    closeCart.addEventListener("click", () => {
+        cartSidebar.classList.remove("open");
     });
 });

@@ -84,15 +84,40 @@ section {
     background-color: #45a29e;
 }
 
-/* Cart Styles */
-#cart {
+/* Cart Sidebar Styles */
+#cart-sidebar {
+    position: fixed;
+    right: -400px; /* Hidden by default */
+    top: 0;
+    width: 400px;
+    height: 100%;
     background-color: #1f2833;
-    padding: 40px;
-    border-radius: 5px;
+    border-left: 1px solid #66fcf1;
+    color: #c5c6c7;
+    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s ease;
+    z-index: 1000;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
-#cart h2 {
+#cart-sidebar.open {
+    right: 0;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #66fcf1;
+    padding-bottom: 15px;
     margin-bottom: 20px;
+}
+
+#close-cart {
+    font-size: 24px;
+    cursor: pointer;
 }
 
 #cart-table {
